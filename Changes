@@ -1,0 +1,60 @@
+Revision history for Perl extension Edge::Mailer.
+
+$Id: Changes,v 1.10 2002/01/30 10:42:10 miyagawa Exp $
+
+0.15  Wed Jan 30 19:41:32 JST 2002
+	- Added send_via_sendmail()
+	- refactoring
+
+0.14  Tue Oct 23 17:26:23 JST 
+	- use %Y instead of %G in strftime (Portability)
+	  (Thanks to milano)
+
+0.13  Wed Jun  6 17:12:22 JST 2001
+	- strip \r in mailbody.
+
+0.12	- use Sys::Hostname for Hello
+
+0.11	- added filter function.
+
+0.10	- removed srand().
+
+0.09	- \r\n => \n
+
+0.08	- MIME-Encoding is done only if a header contains multibyte string. 
+          (for efficiency)  
+
+0.07  Wed Dec  6 21:59:53 JST 2000
+	- use Jcode's mime_encode() if Jcode->VERSION() >= 0.64
+	- Header lines are now parsed if the line continues to multiple lines.
+	- Header keys are treated as case insensitive. FROM: and From: are 
+	  taken as the same.
+	- All headers are MIME-Encoded if they contain non-ascii characters.
+	- use t/*.t to Test.
+
+0.06  Tue Aug 15 01:06:43 JST 2000
+	- If required arguments are not passed, it croaks and returns.
+	- Now we use Sys::Hostname to get a hostname.
+
+0.05  Thu Jul 27 20:39:08 JST 2000
+	- Fixed bugs for invalid MIME-Encoding. *** IMPORTANT ***
+
+0.04  Mon Jul 24 19:49:37 JST 2000
+	- Fixed bugs of MIME-Encoding. *** IMPORTANT ***   
+
+0.032 Tue Jul 11 17:18:19 JST 2000
+	- Fixed bugs for inappropriate Message-Id with IP-address specified host.
+
+0.031 Fri Jul  7 05:24:33 2000
+	- Change my name.
+	- *** API Change ***
+	  new() args must be set as hash ONLY.  
+	  args should be (to, sender, message, smtphost, timeout)
+	- apply Jcode::h2z for mail message.
+	- TimeZone is calculated from difference between gmtime() and localtime().
+	- Fixed bugs for non-unique Message-Id.
+
+0.01  Fri Jul  7 04:44:08 2000
+	- original version; created by h2xs 1.19
+
+

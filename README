@@ -1,0 +1,32 @@
+NAME
+    Edge::Mailer - Standard Mailer of Livin' On The EDGE.
+
+SYNOPSIS
+      use Edge::Mailer;
+
+      my $mailer = new Edge::Mailer to => $to,
+                                    sender => $sender,
+                                    message => $message;
+      $mailer->send;
+
+      # Same as above
+      mailer(to => $to, sender => $sender, message => $message)->send;
+
+      # specify SMTP server and Timeout
+      my $mailer = new Edge::Mailer to => $to,
+                                    sender => $sender,
+                                    message => $message,
+                                    smtphost => $smtphost,
+                                    timeout => 30;
+
+DESCRIPTION
+    This module provides easy way for sending mail. Required headers like '
+    Message-Id', 'Date'... are automatically assigned by this module. Useful
+    when MTA on your SMTP server is a strict qmail...
+
+AUTHOR
+    Tatsuhiko Miyagwa <miyagawa@edge.co.jp> Livin' On The Edge, Limited.
+
+SEE ALSO
+    perl(1), Net::SMTP.
+

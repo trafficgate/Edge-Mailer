@@ -1,0 +1,13 @@
+Changes
+INSTALL
+MANIFEST
+Mailer.pm
+Makefile.PL
+README
+t/00load.t
+t/01new.t
+t/02encode_mime.t
+t/03prepare_send.t
+t/04uc_hiphen.t
+t/05sendmail.t
+t/sendmail

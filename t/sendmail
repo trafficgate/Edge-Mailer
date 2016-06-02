@@ -1,0 +1,11 @@
+#!/usr/local/bin/perl
+# Dummy sendmail command
+# $Id: sendmail,v 1.2 2002/01/30 11:24:02 miyagawa Exp $
+use strict;
+use FileHandle;
+
+my $handle = FileHandle->new("> t/output") or die $!;
+$handle->print("ARGV:", join(",", @ARGV));
+$handle->print("\n");
+$handle->print(<STDIN>);
+$handle->close;
