@@ -7,7 +7,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK);
 require Exporter;
 @ISA = qw(Exporter);
 @EXPORT = qw(mailer);
-$VERSION = '0.15';
+$VERSION = '0.16';
 
 use Carp;
 use FileHandle;
@@ -45,8 +45,6 @@ sub _init {
 sub _prepare_send {
     my $self = shift;
 
-    require POSIX;
-
     # 必須フィールドがなければ warning and return
     foreach my $field (qw( to sender message )) {
 	defined $self->{$field} or do {
@@ -62,8 +60,7 @@ sub _prepare_send {
     my $message = Jcode->new($self->{message})->h2z->euc;
 
     # Time-Zone diff
-    my $diff = calc_diff();
-    my $date = POSIX::strftime("%a, %e %b %Y %T $diff", localtime);
+    my $date = rfc2822date(localtime());
     my $fqdn = $self->{smtphost} ne SMTPHOST_DEFAULT ?
 	$self->{smtphost} : $ENV{SERVER_NAME} || Sys::Hostname::hostname;
 
@@ -216,6 +213,17 @@ sub random_str($) {
     
     my @string = (0..9, 'A'..'Z', 'a'..'z');
     return join '', map { $string[rand $#string] } (0..$length-1);
+}
+
+sub rfc2822date {
+    my @t = @_; # localtime.
+    my $diff = calc_diff();
+    my @days = ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+    my @months = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    my($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = @t;
+    return sprintf("%s, %s %s %04d %02d:%02d:%02d $diff", 
+		   $days[$wday], $mday, $months[$mon], $year + 1900, $hour, $min, $sec);
 }
 
 # gmtime と localtime から time-zone を計算

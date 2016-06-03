@@ -1,7 +1,7 @@
 Changes
 INSTALL
 MANIFEST
-Mailer.pm
+lib/Edge/Mailer.pm
 Makefile.PL
 README
 t/00load.t
